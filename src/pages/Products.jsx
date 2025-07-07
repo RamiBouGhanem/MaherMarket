@@ -1136,7 +1136,14 @@ const Products = () => {
             >
               <FiHome />
             </Link>
-           
+            {/* Burger Menu Button (always visible) */}
+            <button
+              className="text-2xl text-emerald-700" // Removed md:hidden
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle category menu"
+            >
+              {isMenuOpen ? <FiX /> : <FiMenu />}
+            </button>
             {/* Removed the desktop categories list */}
           </div>
         </div>
@@ -1174,14 +1181,6 @@ const Products = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full sm:w-96 p-3 border border-emerald-200 rounded-lg shadow focus:ring-2 focus:ring-emerald-300 focus:outline-none"
           />
-           {/* Burger Menu Button (always visible) */}
-            <button
-              className="text-2xl text-emerald-700 mx-4" // Removed md:hidden
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle category menu"
-            >
-              {isMenuOpen ? <FiX /> : <FiMenu />}
-            </button>
         </div>
 
         {/* Products Grid */}
