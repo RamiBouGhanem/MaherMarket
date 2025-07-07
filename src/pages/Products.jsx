@@ -1,18 +1,17 @@
 // src/pages/Products.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FiHome } from "react-icons/fi";
+import { FiHome, FiMenu, FiX } from "react-icons/fi"; // Import FiMenu and FiX for burger icon
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for burger menu
 
   const categories = [
     "all",
-    // "yerba",
     "bread",
     "dairy",
-    // "snacks",
     "drinks",
     "Frozen",
     "fruits",
@@ -22,8 +21,9 @@ const Products = () => {
     "coffee",
     "sauces",
     "Cleaning Tools && detergents",
-
-    // "spreads"
+    "ice",
+    "yerba",
+    "spreads",
   ];
 
   const products = [
@@ -580,7 +580,7 @@ const Products = () => {
       id: 78,
       name: "Amanda – يربا أماندا",
       price: 2.5,
-      category: "",
+      category: "yerba",
       description: "Amanda yerba mate",
     },
     {
@@ -1097,110 +1097,6 @@ const Products = () => {
       category: "Frozen",
       description: "Lebanese frozen specialty from Insta",
     },
-
-    // Coffee
-    {
-      id: 150,
-      name: "Najar Coffee Blue – قهوة النجار الزرقاء",
-      price: 2.5,
-      category: "coffee",
-      description: "Traditional Lebanese coffee – Blue",
-    },
-    {
-      id: 151,
-      name: "Najar Coffee Green – قهوة النجار الخضراء",
-      price: 2.5,
-      category: "coffee",
-      description: "Traditional Lebanese coffee – Green",
-    },
-    {
-      id: 152,
-      name: "Nescafe – نسكافيه",
-      price: 1.5,
-      category: "coffee",
-      description: "Instant coffee",
-    },
-    {
-      id: 153,
-      name: "Cappuccino – كابتشينو",
-      price: 1.7,
-      category: "coffee",
-      description: "Creamy cappuccino drink",
-    },
-    {
-      id: 154,
-      name: "Nescafe Gold – نسكافيه جولد",
-      price: 2.0,
-      category: "coffee",
-      description: "Premium instant coffee by Nescafe",
-    },
-
-    // Spreads
-    {
-      id: 155,
-      name: "Nutella Spread – نوتيلا",
-      price: 4.5,
-      category: "spreads",
-      description: "Chocolate hazelnut spread",
-    },
-    {
-      id: 156,
-      name: "Lotus Spread – سبريد لوتس",
-      price: 4.0,
-      category: "spreads",
-      description: "Caramelized biscuit spread",
-    },
-
-    // Sauces
-    {
-      id: 157,
-      name: "Barbecue Sauce – صلصة باربيكيو",
-      price: 2.5,
-      category: "sauces",
-      description: "Smoky and tangy barbecue sauce",
-    },
-    {
-      id: 158,
-      name: "Ketchup – كاتشب",
-      price: 1.8,
-      category: "sauces",
-      description: "Classic tomato ketchup",
-    },
-    {
-      id: 159,
-      name: "Mayonnaise – مايونيز",
-      price: 2.0,
-      category: "sauces",
-      description: "Creamy mayonnaise",
-    },
-    {
-      id: 160,
-      name: "Mustard – خردل",
-      price: 1.7,
-      category: "sauces",
-      description: "Tangy mustard sauce",
-    },
-    {
-      id: 161,
-      name: "Buffalo Sauce – صلصة بوفالو",
-      price: 2.3,
-      category: "sauces",
-      description: "Spicy buffalo wing sauce",
-    },
-    {
-      id: 162,
-      name: "Hot Sauce – صلصة حارة",
-      price: 1.9,
-      category: "sauces",
-      description: "Spicy hot sauce",
-    },
-    {
-      id: 163,
-      name: "Soya Sauce – صلصة صويا",
-      price: 2.1,
-      category: "sauces",
-      description: "Savory soy sauce",
-    },
   ];
 
   const filteredProducts = products.filter((product) => {
@@ -1212,10 +1108,15 @@ const Products = () => {
     return matchesSearch && matchesCategory;
   });
 
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    setIsMenuOpen(false); // Close the menu after selection
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-stone-50">
       {/* Navbar */}
-      <nav className="bg-white/90 backdrop-blur-md border-b bordeyerbar-emerald-200 p-4 sticky top-0 z-50 shadow-md">
+      <nav className="bg-white/90 backdrop-blur-md border-b border-emerald-200 p-4 sticky top-0 z-50 shadow-md">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* Brand */}
           <Link to="/" className="flex items-center gap-3">
@@ -1227,16 +1128,36 @@ const Products = () => {
             </h1>
           </Link>
 
-          {/* Links */}
-          <div className=" md:flex items-center space-x-6 text-sm font-medium text-emerald-900">
+          {/* Links and Burger Icon */}
+          <div className="flex items-center space-x-6 text-sm font-medium text-emerald-900">
             <Link
               to="/"
               className="hover:text-emerald-600 transition-colors text-xl"
             >
               <FiHome />
             </Link>
+           
+            {/* Removed the desktop categories list */}
           </div>
         </div>
+        {/* Mobile Categories Menu (toggled by burger icon, now main category display) */}
+        {isMenuOpen && (
+          <div className="absolute top-full left-0 w-full bg-white/95 backdrop-blur-md border-b border-emerald-200 shadow-lg py-4 px-4 flex flex-col items-start gap-3">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => handleCategoryClick(cat)}
+                className={`w-full text-left capitalize px-4 py-2 rounded-lg text-base font-medium transition duration-200 ${
+                  selectedCategory === cat
+                    ? "bg-emerald-600 text-white"
+                    : "text-gray-800 hover:bg-emerald-50"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        )}
       </nav>
 
       {/* Main content */}
@@ -1253,23 +1174,14 @@ const Products = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full sm:w-96 p-3 border border-emerald-200 rounded-lg shadow focus:ring-2 focus:ring-emerald-300 focus:outline-none"
           />
-        </div>
-
-        {/* Categories */}
-        <div className="flex gap-2 overflow-x-auto pb-4 mb-8 justify-center md:justify-start lg:justify-center">
-          {categories.map((cat) => (
+           {/* Burger Menu Button (always visible) */}
             <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`capitalize px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition duration-200 ${
-                selectedCategory === cat
-                  ? "bg-emerald-600 text-white shadow"
-                  : "bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
-              }`}
+              className="text-2xl text-emerald-700 mx-4" // Removed md:hidden
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle category menu"
             >
-              {cat}
+              {isMenuOpen ? <FiX /> : <FiMenu />}
             </button>
-          ))}
         </div>
 
         {/* Products Grid */}
@@ -1288,7 +1200,9 @@ const Products = () => {
                     {product.description}
                   </p>
                 </div>
-                
+                <p className="text-md font-bold text-emerald-700 mt-2">
+                  ${product.price.toFixed(2)}
+                </p>
               </div>
             ))
           ) : (
