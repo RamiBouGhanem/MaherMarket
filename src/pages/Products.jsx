@@ -476,14 +476,14 @@ const Products = () => {
     },
     {
       id: 64,
-      name: "Gaint Chocolate – بوظة عملاقة شوكولا",
+      name: "Gaint Chocolate – بوظة جيانت شوكولا",
       price: 2.0,
       category: "Ice Cream",
       description: "Large chocolate ice cream bar",
     },
     {
       id: 65,
-      name: "Gaint Milk & Chocolate – بوظة عملاقة بالحليب والشوكولا",
+      name: "Gaint Milk & Chocolate – بوظة جيانت بالحليب والشوكولا",
       price: 2.0,
       category: "Ice Cream",
       description: "Milk & chocolate giant ice cream",
@@ -553,7 +553,7 @@ const Products = () => {
     },
     {
       id: 75,
-      name: "Bouble Cookie – بوظة كوكي مزدوجة",
+      name: "Bouble Cookie – بوظة كوكيز",
       price: 1.1,
       category: "Ice Cream",
       description: "Double cookie ice cream sandwich",
@@ -814,7 +814,7 @@ const Products = () => {
     },
     {
       id: 111,
-      name: "Hand Soap (Bar) – صابون يد قالب",
+      name: "Hand Soap (Bar) – صابون يد ",
       price: 0.7,
       category: "Cleaning Tools && detergents",
       description: "Classic bar hand soap",
@@ -1092,7 +1092,7 @@ const Products = () => {
     },
     {
       id: 149,
-      name: "Insta (Lebanese Art Delicious)",
+      name: "Lebanese Art Delicious (Insta)",
       price: 5.0,
       category: "Frozen",
       description: "Lebanese frozen specialty from Insta",
@@ -1288,11 +1288,7 @@ const Products = () => {
                     {product.description}
                   </p>
                 </div>
-                <div className="mt-4 text-right">
-                  <span className="text-emerald-700 font-bold text-lg">
-                    ${product.price.toFixed(2)}
-                  </span>
-                </div>
+                
               </div>
             ))
           ) : (
